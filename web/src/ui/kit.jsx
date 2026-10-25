@@ -86,7 +86,7 @@ export function Spinner() {
 export function Empty({ icon = 'leaf', title, children, action }) {
   return (
     <div className="empty">
-      <span className="ico"><Icon name={icon} color="#1F6B45" size={24} /></span>
+      <span className="ico"><Icon name={icon} color="#147A4B" size={24} /></span>
       {title && <div className="bold" style={{ color: 'var(--ink)', fontSize: 15 }}>{title}</div>}
       {children && <div>{children}</div>}
       {action}
@@ -98,7 +98,7 @@ export function ErrorBox({ error, onRetry }) {
   if (!error) return null;
   return (
     <div className="notice" role="alert">
-      <Icon name="info" size={16} color="#B4430D" style={{ flexShrink: 0, marginTop: 1 }} />
+      <Icon name="info" size={16} color="#E5481F" style={{ flexShrink: 0, marginTop: 1 }} />
       <span className="grow">{error.message}</span>
       {onRetry && <button type="button" className="link-btn" style={{ padding: 0, color: 'var(--orange)' }} onClick={onRetry}>Retry</button>}
     </div>

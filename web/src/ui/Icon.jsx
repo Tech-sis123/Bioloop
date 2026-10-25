@@ -50,7 +50,7 @@ export default function Icon({ name, size = 20, color = 'currentColor', stroke =
   );
 }
 
-export function LogoMark({ size = 30, a = '#1F6B45', b = '#255F9A' }) {
+export function LogoMark({ size = 30, a = '#147A4B', b = '#2F5BFF' }) {
   return (
     <svg width={size} height={size} viewBox="0 0 30 30" aria-hidden="true">
       <circle cx="11" cy="15" r="7.5" fill="none" stroke={a} strokeWidth="3.2" />

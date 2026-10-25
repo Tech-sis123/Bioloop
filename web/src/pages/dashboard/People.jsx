@@ -176,7 +176,7 @@ export function Users() {
       </header>
       <div className="row wrap" style={{ gap: 10 }}>
         <label className="search" style={{ flex: '1 1 260px', maxWidth: 420 }}>
-          <Icon name="search" size={18} color="#52635A" />
+          <Icon name="search" size={18} color="#4D6356" />
           <input type="search" placeholder="Search name or email" value={q} onChange={(e) => setQ(e.target.value)} aria-label="Search people" />
         </label>
         <div role="group" className="filters">
@@ -246,7 +246,7 @@ export function Reports() {
         <div className="stack">
           {data.reports.map((r) => (
             <section key={r.id} className={`card row ${r.status === 'open' ? 'warn' : ''}`} style={{ alignItems: 'flex-start' }}>
-              <span className="alert-ico" style={{ background: '#FCE7D6' }}><Icon name="flag" size={18} color="#B4430D" /></span>
+              <span className="alert-ico" style={{ background: '#FFE3D8' }}><Icon name="flag" size={18} color="#E5481F" /></span>
               <div className="grow stack-sm" style={{ gap: 4 }}>
                 <div className="bold">{r.stationCode} · {r.categoryLabel}</div>
                 {r.description && <div className="small">{r.description}</div>}

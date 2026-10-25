@@ -83,7 +83,7 @@ export default function Pickups() {
                     <td><div className="bold">{p.stationCode}</div><div className="xs muted">{p.stationName}</div></td>
                     <td><StreamTag stream={p.stream} /></td>
                     <td className="bold">{p.status === 'completed' ? (p.weightKg ? kg(p.weightKg) : '–') : `${p.currentFill ?? p.fillAtRequest ?? '?'}%`}</td>
-                    <td>{p.collectorOrgName || <span style={{ color: '#8A3409', fontWeight: 600 }}>Unassigned</span>}</td>
+                    <td>{p.collectorOrgName || <span style={{ color: '#C2381A', fontWeight: 600 }}>Unassigned</span>}</td>
                     <td className="small">{p.status === 'completed' ? whenLabel(p.completedAt) : ago(p.requestedAt)}<div className="xs muted">{p.source === 'manual' ? 'Manual' : 'Sensor'}</div></td>
                     <td><PickupStatus p={p} /></td>
                     <td style={{ whiteSpace: 'nowrap' }}>

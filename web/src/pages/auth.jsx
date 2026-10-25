@@ -3,19 +3,20 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../lib/auth.jsx';
 import { post } from '../lib/api.js';
 import { ErrorBox, Field, useForm } from '../ui/kit.jsx';
-import { LogoMark } from '../ui/Icon.jsx';
+import Icon, { LogoMark } from '../ui/Icon.jsx';
 
 function Shell({ title, sub, children }) {
   return (
     <div className="auth">
       <div className="auth-card">
+        <Link to="/welcome" className="auth-back"><Icon name="back" size={18} />BioLoop home</Link>
         <div className="auth-hero">
           <svg className="rings" width="200" height="200" viewBox="0 0 30 30" aria-hidden="true">
-            <circle cx="11" cy="15" r="7.5" fill="none" stroke="#8FD3A8" strokeWidth="2" />
-            <circle cx="19" cy="15" r="7.5" fill="none" stroke="#8DB8E6" strokeWidth="2" />
+            <circle cx="11" cy="15" r="7.5" fill="none" stroke="#7CE3A3" strokeWidth="2" />
+            <circle cx="19" cy="15" r="7.5" fill="none" stroke="#A9BBFF" strokeWidth="2" />
           </svg>
           <div className="row" style={{ marginBottom: 18 }}>
-            <LogoMark a="#8FD3A8" b="#8DB8E6" />
+            <LogoMark a="#7CE3A3" b="#A9BBFF" />
             <span className="display" style={{ fontSize: 21 }}>BioLoop</span>
           </div>
           <h1 className="display" style={{ fontSize: 28 }}>{title}</h1>

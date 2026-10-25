@@ -48,7 +48,7 @@ export function RecyclerMarket() {
       <main className="page" style={{ gap: 12 }}>
         {!user.orgId && <div className="notice">Your account is not linked to a recycling company yet. Ask your BioLoop admin to add you.</div>}
         <label className="search">
-          <Icon name="search" size={18} color="#52635A" />
+          <Icon name="search" size={18} color="#4D6356" />
           <span className="sr-only">Search materials or area</span>
           <input type="search" placeholder="Search material or area" value={q} onChange={(e) => setQ(e.target.value)} />
         </label>
@@ -59,23 +59,23 @@ export function RecyclerMarket() {
         <section aria-label="Your week" className="row" style={{ gap: 14, background: 'var(--blue-soft)', borderRadius: 20, padding: '14px 16px' }}>
           <div className="grow">
             <div className="small bold" style={{ color: 'var(--blue-text)' }}>Reserved this week</div>
-            <div className="num" style={{ fontSize: 28, lineHeight: 1.1, color: '#10314F' }}>{kg(mine.data?.weekKg)}</div>
+            <div className="num" style={{ fontSize: 28, lineHeight: 1.1, color: '#13265E' }}>{kg(mine.data?.weekKg)}</div>
           </div>
           <div className="row" style={{ alignItems: 'flex-end', gap: 5, height: 44 }} aria-hidden="true">
             {(weeks.length ? weeks : [{ kg: 0 }, { kg: 0 }, { kg: 0 }, { kg: 0 }, { kg: 0 }]).map((w, i, arr) => (
-              <span key={i} style={{ width: 10, height: `${Math.max(8, (w.kg / maxWeek) * 100)}%`, borderRadius: 4, background: i === arr.length - 1 ? '#255F9A' : '#9BBCE0' }} />
+              <span key={i} style={{ width: 10, height: `${Math.max(8, (w.kg / maxWeek) * 100)}%`, borderRadius: 4, background: i === arr.length - 1 ? '#2F5BFF' : '#A9BBFF' }} />
             ))}
           </div>
         </section>
 
         <ErrorBox error={market.error} onRetry={market.reload} />
-        {!market.data ? <Spinner /> : !market.data.materials.length ? (
+        <div className="list-grid">{!market.data ? <Spinner /> : !market.data.materials.length ? (
           <Empty icon="box" title="Nothing available right now">Batches appear here as collectors empty sorted compartments.</Empty>
         ) : market.data.materials.map((m) => (
           <article key={m.material} className="card stack" style={{ gap: 12 }}>
             <div className="row" style={{ alignItems: 'flex-start', gap: 12 }}>
-              <span className="swatch" style={{ width: 46, height: 46, borderRadius: 14, background: m.material === 'organic' ? '#DDEEE2' : '#DCE8F5' }}>
-                <Icon name={ICON[m.material]} size={22} color={m.material === 'organic' ? '#1F6B45' : '#255F9A'} />
+              <span className="swatch" style={{ width: 46, height: 46, borderRadius: 14, background: m.material === 'organic' ? '#D4F2DD' : '#E0E7FF' }}>
+                <Icon name={ICON[m.material]} size={22} color={m.material === 'organic' ? '#147A4B' : '#2F5BFF'} />
               </span>
               <div className="grow">
                 <h2 style={{ fontSize: 16 }}>{m.materialLabel}</h2>
@@ -91,7 +91,7 @@ export function RecyclerMarket() {
                 <button type="button" className="btn ghost" onClick={() => setDetail(m)}>Details</button>
             </div>
           </article>
-        ))}
+        ))}</div>
       </main>
       <Sheet open={!!detail} onClose={() => setDetail(null)} title={detail?.materialLabel || ''}>
         {detail && (
@@ -133,7 +133,7 @@ export function RecyclerOrders() {
         <h1 className="page-title md">Orders</h1>
         <AlertsButton unread={unread} />
       </header>
-      <main className="page" style={{ gap: 12 }}>
+      <main className="page narrow" style={{ gap: 12 }}>
         <ErrorBox error={error} onRetry={reload} />
         {!data ? <Spinner /> : !data.batches.length ? <Empty icon="box" title="No reservations yet">Reserve a batch from the market and it will show here.</Empty> : (
           <>

@@ -43,9 +43,9 @@ export default function StationMap({ points, height = 300, onSelect, highlight }
 export function MapLegend() {
   return (
     <div className="legend">
-      <span><i style={{ background: '#8FD3A8' }} />OK</span>
-      <span><i style={{ background: '#F2D27A' }} />Near full</span>
-      <span><i style={{ background: '#F6A55E', boxShadow: '0 0 0 3px rgba(246,165,94,0.3)' }} />Locked</span>
+      <span><i style={{ background: '#7CE3A3' }} />OK</span>
+      <span><i style={{ background: '#FFD84D' }} />Near full</span>
+      <span><i style={{ background: '#FF9A6B', boxShadow: '0 0 0 3px rgba(246,165,94,0.3)' }} />Locked</span>
       <span><i style={{ boxShadow: 'inset 0 0 0 2px rgba(255,255,255,0.6)' }} />Offline</span>
     </div>
   );

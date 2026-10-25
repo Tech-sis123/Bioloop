@@ -48,7 +48,7 @@ export default function Overview() {
           <div className="sub">{offline ? `${offline} offline, check power` : 'All reporting'}</div>
         </div>
         <div className={`kpi ${data.lockedBins ? 'warn' : ''}`}>
-          <div className="lbl" style={{ color: data.lockedBins ? '#8A3409' : undefined }}>Locked (full)</div>
+          <div className="lbl" style={{ color: data.lockedBins ? '#C2381A' : undefined }}>Locked (full)</div>
           <div className="val" style={{ color: data.lockedBins ? 'var(--orange)' : undefined }}>{data.lockedBins}</div>
           <div className="sub">{data.oldestLockedAt ? `Oldest waiting ${duration(data.oldestLockedAt)}` : 'None waiting'}</div>
         </div>
@@ -88,7 +88,7 @@ export default function Overview() {
                       <td><div className="bold">{p.stationCode}</div><div className="xs muted">{p.stationName}</div></td>
                       <td><StreamTag stream={p.stream} /></td>
                       <td className="bold">{p.currentFill ?? p.fillAtRequest}%</td>
-                      <td style={!p.collectorOrgName ? { color: '#8A3409', fontWeight: 600 } : undefined}>{p.collectorOrgName || 'Unassigned'}</td>
+                      <td style={!p.collectorOrgName ? { color: '#C2381A', fontWeight: 600 } : undefined}>{p.collectorOrgName || 'Unassigned'}</td>
                       <td>{!p.collectorOrgId ? <button type="button" className="link-btn" onClick={() => setAssign(p)}>Assign</button> : <PickupStatus p={p} />}</td>
                     </tr>
                   ))}

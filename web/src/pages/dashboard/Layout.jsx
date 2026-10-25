@@ -24,7 +24,7 @@ export default function DashboardLayout() {
     <div className="dash">
       <aside className="dash-side">
         <div className="row" style={{ padding: '0 8px', gap: 10 }}>
-          <LogoMark a="#8FD3A8" b="#8DB8E6" />
+          <LogoMark a="#7CE3A3" b="#A9BBFF" />
           <span className="display" style={{ fontSize: 21 }}>BioLoop</span>
           <span className="tag">{user.role === 'admin' ? 'Admin' : 'Agency'}</span>
           <button type="button" className="icon-btn dash-mobile-bar" style={{ marginLeft: 'auto', background: 'transparent', borderColor: 'rgba(255,255,255,0.2)', color: '#fff' }} aria-label="Sign out" onClick={async () => { await logout(); nav('/login'); }}>

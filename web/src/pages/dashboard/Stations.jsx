@@ -28,7 +28,7 @@ export default function Stations() {
       </header>
       <div className="row wrap" style={{ gap: 10 }}>
         <label className="search" style={{ flex: '1 1 260px', maxWidth: 420 }}>
-          <Icon name="search" size={18} color="#52635A" />
+          <Icon name="search" size={18} color="#4D6356" />
           <span className="sr-only">Search stations</span>
           <input type="search" placeholder="Search code, name or area" value={q} onChange={(e) => setQ(e.target.value)} />
         </label>
@@ -56,7 +56,7 @@ export default function Stations() {
                       <td key={c.stream} style={{ minWidth: 90 }}>
                         <div className="row" style={{ gap: 6 }}>
                           <div className="grow"><Bar thin value={c.fillPct} color={STREAM[c.stream].color} /></div>
-                          <span className="xs bold" style={{ color: c.locked ? 'var(--orange)' : undefined }}>{c.locked ? <Icon name="lock" size={12} color="#B4430D" stroke={2.6} /> : null}{c.fillPct}%</span>
+                          <span className="xs bold" style={{ color: c.locked ? 'var(--orange)' : undefined }}>{c.locked ? <Icon name="lock" size={12} color="#E5481F" stroke={2.6} /> : null}{c.fillPct}%</span>
                         </div>
                       </td>
                     ))}
@@ -64,7 +64,7 @@ export default function Stations() {
                       {!s.lastSeenAt ? <span className="pill grey">Never connected</span> : s.online ? <span className="pill ok">Online</span> : <span className="pill locked">Offline</span>}
                       <div className="xs muted" style={{ marginTop: 3 }}>{s.lastSeenAt ? ago(s.lastSeenAt) : 'waiting for first report'}{s.batteryPct != null ? ` · ${s.batteryPct}%` : ''}</div>
                     </td>
-                    <td className="small">{s.collectorOrgName || <span style={{ color: '#8A3409', fontWeight: 600 }}>None</span>}</td>
+                    <td className="small">{s.collectorOrgName || <span style={{ color: '#C2381A', fontWeight: 600 }}>None</span>}</td>
                   </tr>
                 ))}
               </tbody>
@@ -127,7 +127,7 @@ export function KeySheet({ data, onClose }) {
   return (
     <Sheet open onClose={onClose} title="Device key" center>
       <div className="stack">
-        <div className="notice"><Icon name="key" size={16} color="#B4430D" style={{ flexShrink: 0, marginTop: 1 }} /><span><strong>Copy this now.</strong> For security it is shown only once. If it is lost, issue a new key (the old one stops working).</span></div>
+        <div className="notice"><Icon name="key" size={16} color="#E5481F" style={{ flexShrink: 0, marginTop: 1 }} /><span><strong>Copy this now.</strong> For security it is shown only once. If it is lost, issue a new key (the old one stops working).</span></div>
         {data.station && <p className="small muted">For {data.station.code} · {data.station.name}</p>}
         <div className="code">{data.key}</div>
         <button type="button" className="btn block" onClick={async () => toast((await copyText(data.key)) ? 'Key copied' : 'Copy failed, select it manually', 'ok')}><Icon name="copy" size={17} />Copy key</button>
@@ -210,7 +210,7 @@ function StationSheet({ id, onClose, orgs, onChanged, onKey }) {
           <div className="row wrap" style={{ gap: 8 }}>
             {!s.lastSeenAt ? <span className="chip">Never connected</span> : s.online ? <span className="chip ok"><span className="dot" />Online</span> : <span className="chip off"><span className="dot" />Offline</span>}
             <span className="chip">Last report {ago(s.lastSeenAt)}</span>
-            {s.batteryPct != null && <span className="chip"><Icon name="sun" size={14} color="#7A5B00" />{s.batteryPct}%{s.solarV != null ? ` · ${s.solarV} V` : ''}</span>}
+            {s.batteryPct != null && <span className="chip"><Icon name="sun" size={14} color="#7A5300" />{s.batteryPct}%{s.solarV != null ? ` · ${s.solarV} V` : ''}</span>}
             {s.rssi != null && <span className="chip">Signal {s.rssi} dBm</span>}
             {s.firmware && <span className="chip">FW {s.firmware}</span>}
           </div>

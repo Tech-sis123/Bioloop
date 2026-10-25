@@ -1,40 +1,40 @@
 :root {
-  --bg: #F3F5EF;
+  --bg: #F1F7F0;
   --card: #FFFFFF;
-  --ink: #10231A;
-  --muted: #52635A;
-  --line: #E0E6DB;
-  --line-2: #CFD8CA;
-  --track: #EEF1EA;
+  --ink: #13261B;
+  --muted: #4D6356;
+  --line: #D6E3D7;
+  --line-2: #BFD1C1;
+  --track: #E6EFE6;
 
-  --green: #1F6B45;
-  --green-dark: #10402B;
-  --green-soft: #DDEEE2;
-  --green-text: #1A5C3B;
-  --mint: #8FD3A8;
+  --green: #147A4B;
+  --green-dark: #0D4A2E;
+  --green-soft: #D4F2DD;
+  --green-text: #0F5C37;
+  --mint: #7CE3A3;
 
-  --blue: #255F9A;
-  --blue-soft: #DCE8F5;
-  --blue-text: #1E4A78;
-  --navy: #0B3A52;
-  --navy-2: #0E4664;
-  --sky: #8DB8E6;
+  --blue: #2F5BFF;
+  --blue-soft: #E0E7FF;
+  --blue-text: #1E3BB3;
+  --navy: #13265E;
+  --navy-2: #1B3373;
+  --sky: #A9BBFF;
 
-  --general: #D9A520;
-  --general-soft: #F8EFC9;
-  --general-text: #7A5B00;
-  --recyclable: #255F9A;
-  --organic: #2E8B57;
+  --general: #F0B000;
+  --general-soft: #FFF0B8;
+  --general-text: #7A5300;
+  --recyclable: #2F5BFF;
+  --organic: #1F9D5A;
 
-  --orange: #B4430D;
-  --orange-soft: #FCE7D6;
-  --orange-wash: #FCEDE1;
-  --orange-line: #F2C9A8;
-  --orange-ink: #6B2A08;
-  --peach: #F6A55E;
-  --dot: #C2410C;
-  --near: #F8E3B0;
-  --near-text: #6B4700;
+  --orange: #E5481F;
+  --orange-soft: #FFE3D8;
+  --orange-wash: #FFEDE6;
+  --orange-line: #FFB9A3;
+  --orange-ink: #7A230A;
+  --peach: #FF9A6B;
+  --dot: #FF4F8B;
+  --near: #FFE89A;
+  --near-text: #6B4500;
 
   --radius-lg: 26px;
   --radius: 22px;
@@ -58,12 +58,12 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 a { color: var(--green); }
-a:hover { color: #164E33; }
+a:hover { color: #0D4A2E; }
 button { font: inherit; color: inherit; }
 img, svg { display: block; }
 h1, h2, h3 { margin: 0; }
 p { margin: 0; }
-:focus-visible { outline: 3px solid #8FD3A8; outline-offset: 2px; border-radius: 8px; }
+:focus-visible { outline: 3px solid #7CE3A3; outline-offset: 2px; border-radius: 8px; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 .display { font-family: var(--display); font-weight: 700; letter-spacing: -0.025em; line-height: 1.08; }
@@ -148,7 +148,7 @@ p { margin: 0; }
 .tank-lock { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 30px; height: 30px; border-radius: 10px; background: var(--green-dark); display: flex; align-items: center; justify-content: center; }
 .tank-num { font-family: var(--display); font-size: 24px; font-weight: 700; line-height: 1; margin-top: 8px; }
 .tank-label { font-size: 13px; color: rgba(255, 255, 255, 0.8); margin-top: 3px; }
-.tank-label.alert { color: #F6B57B; font-weight: 600; }
+.tank-label.alert { color: #FFB38F; font-weight: 600; }
 .hero-strip { display: flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.08); border-radius: 14px; padding: 10px 12px; font-size: 14px; }
 
 .quick { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
@@ -322,7 +322,7 @@ textarea.input { height: auto; min-height: 96px; padding: 12px 14px; resize: ver
 .map-box .grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.06) 2px, transparent 2px), linear-gradient(90deg, rgba(255,255,255,0.06) 2px, transparent 2px); background-size: 56px 56px; }
 .map-pin { all: unset; cursor: pointer; position: absolute; transform: translate(-50%, -50%); border-radius: 50%; }
 .map-pin.ok { width: 12px; height: 12px; background: var(--mint); }
-.map-pin.near { width: 12px; height: 12px; background: #F2D27A; }
+.map-pin.near { width: 12px; height: 12px; background: #FFD84D; }
 .map-pin.locked { width: 14px; height: 14px; background: var(--peach); box-shadow: 0 0 0 6px rgba(246,165,94,0.3); }
 .map-pin.off { width: 12px; height: 12px; background: transparent; box-shadow: inset 0 0 0 2px rgba(255,255,255,0.6); }
 .map-label { position: absolute; transform: translate(12px, -50%); font-size: 12px; font-weight: 700; background: #fff; color: var(--ink); padding: 4px 8px; border-radius: 8px; pointer-events: none; white-space: nowrap; }

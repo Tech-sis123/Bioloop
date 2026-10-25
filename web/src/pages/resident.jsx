@@ -27,12 +27,13 @@ export function ResidentHome() {
         <Logo />
         <AlertsButton unread={unread} />
       </header>
-      <main className="page">
-        <div>
-          <p className="small muted" style={{ fontSize: 14 }}>{greeting()}, {firstName(user.fullName)}</p>
-          <h1 className="display" style={{ fontSize: 28, marginTop: 4 }}>{l1}<br />{l2}</h1>
+      <main className="page cols">
+        <div className="span-all">
+          <p className="muted" style={{ fontSize: 15, fontWeight: 600 }}>{greeting()}, {firstName(user.fullName)}</p>
+          <h1 className="display" style={{ fontSize: 'clamp(32px, 4.4vw, 54px)', marginTop: 6, lineHeight: 0.98 }}>{l1}<br />{l2}</h1>
         </div>
 
+        <div className="col">
         <ErrorBox error={error} onRetry={reload} />
         {!user.homeStationId ? (
           <Link to="/find" className="hero">
@@ -50,12 +51,14 @@ export function ResidentHome() {
         ) : (
           <HeroCard station={station} />
         )}
+        </div>
 
+        <div className="col">
         <div className="quick">
-          <Link to="/find"><span className="quick-ico" style={{ background: '#DDEEE2' }}><Icon name="pin" size={19} color="#1F6B45" /></span>Find a bin</Link>
-          <button type="button" onClick={() => setReport(true)}><span className="quick-ico" style={{ background: '#FCE7D6' }}><Icon name="flag" size={19} color="#B4430D" /></span>Report</button>
-          <Link to="/sort-guide"><span className="quick-ico" style={{ background: '#DCE8F5' }}><Icon name="recycle" size={19} color="#255F9A" /></span>Sort guide</Link>
-          <Link to="/rewards"><span className="quick-ico" style={{ background: '#F8EFC9' }}><Icon name="medal" size={19} color="#7A5B00" /></span>Rewards</Link>
+          <Link to="/find"><span className="quick-ico" style={{ background: '#D4F2DD' }}><Icon name="pin" size={19} color="#147A4B" /></span>Find a bin</Link>
+          <button type="button" onClick={() => setReport(true)}><span className="quick-ico" style={{ background: '#FFE3D8' }}><Icon name="flag" size={19} color="#E5481F" /></span>Report</button>
+          <Link to="/sort-guide"><span className="quick-ico" style={{ background: '#E0E7FF' }}><Icon name="recycle" size={19} color="#2F5BFF" /></span>Sort guide</Link>
+          <Link to="/rewards"><span className="quick-ico" style={{ background: '#FFF0B8' }}><Icon name="medal" size={19} color="#7A5300" /></span>Rewards</Link>
         </div>
 
         <section className="card tight stack" style={{ gap: 10 }}>
@@ -65,7 +68,7 @@ export function ResidentHome() {
           </div>
           {activity.data?.activity?.length ? activity.data.activity.slice(0, 3).map((a) => (
             <div className="act" key={a.id}>
-              <i style={{ background: STREAM[a.stream]?.color || '#2E8B57' }} />
+              <i style={{ background: STREAM[a.stream]?.color || '#1F9D5A' }} />
               <div className="grow">
                 <div style={{ fontSize: 14, fontWeight: 600 }}>{a.reason === 'drop' ? `Dropped ${a.weightKg ? `${a.weightKg} kg of ` : ''}${STREAM[a.stream]?.label.toLowerCase() || 'waste'}` : a.reason}</div>
                 <div className="xs muted">{whenLabel(a.at)}{a.stationCode ? ` · ${a.stationCode}` : ''}</div>
@@ -75,6 +78,7 @@ export function ResidentHome() {
           )) : <p className="small muted">Log your sorted drop-offs to start earning Loop points.</p>}
           {station && <button type="button" className="btn ghost block" onClick={() => setDrop(true)}><Icon name="plus" size={17} />Log a drop</button>}
         </section>
+        </div>
       </main>
       <ReportSheet open={report} onClose={() => setReport(false)} station={station} />
       <DropSheet open={drop} onClose={() => setDrop(false)} station={station} onDone={() => activity.reload()} />
@@ -99,7 +103,7 @@ function HeroCard({ station }) {
           <div key={c.stream}>
             <div className={`tank ${c.locked ? 'locked' : ''}`}>
               <div className="tank-fill" style={{ height: `${c.fillPct}%`, background: STREAM[c.stream].hero }} />
-              {c.locked && <div className="tank-lock"><Icon name="lock" size={15} color="#F6A55E" stroke={2.4} /></div>}
+              {c.locked && <div className="tank-lock"><Icon name="lock" size={15} color="#FF9A6B" stroke={2.4} /></div>}
             </div>
             <div className="tank-num">{c.fillPct}%</div>
             <div className={`tank-label ${c.locked ? 'alert' : ''}`}>{STREAM[c.stream].label}{c.locked ? ' · locked' : ''}</div>
@@ -156,19 +160,19 @@ export function StationDetail() {
   return (
     <>
       <BackHeader title={s?.code || 'Station'} subtitle={s ? `${s.name}${s.area ? ` · ${s.area}` : ''}` : ''} />
-      <main className="page" style={{ gap: 14 }}>
-        <ErrorBox error={error} onRetry={reload} />
+      <main className="page cols" style={{ gap: 14 }}>
+        <div className="span-all"><ErrorBox error={error} onRetry={reload} /></div>
         {!s ? <Spinner /> : (
           <>
-            <div className="row wrap" style={{ gap: 8 }}>
+            <div className="row wrap span-all" style={{ gap: 8 }}>
               {s.online
                 ? <span className="chip ok"><span className="dot" />Online</span>
                 : <span className="chip off"><span className="dot" />Offline</span>}
-              {s.batteryPct != null && <span className="chip"><Icon name="sun" size={14} color="#7A5B00" />Solar battery {s.batteryPct}%</span>}
+              {s.batteryPct != null && <span className="chip"><Icon name="sun" size={14} color="#7A5300" />Solar battery {s.batteryPct}%</span>}
               <span className="chip muted">Updated {ago(s.lastSeenAt)}</span>
             </div>
 
-            <section aria-label="Compartments" className="card stack" style={{ gap: 16 }}>
+            <section aria-label="Compartments" className="card loud stack" style={{ gap: 18, padding: 20 }}>
               {s.compartments.map((c) => {
                 const st = compStatus(c);
                 return (
@@ -180,14 +184,14 @@ export function StationDetail() {
                         <div className="xs muted">{STREAM[c.stream].hint}</div>
                       </div>
                       <div style={{ textAlign: 'right' }}>
-                        <div className="num" style={{ fontSize: 20 }}>{c.fillPct}%</div>
+                        <div className="num" style={{ fontSize: 28 }}>{c.fillPct}%</div>
                         <div className="xs" style={{ color: st.tone === 'locked' ? 'var(--orange)' : st.tone === 'near' || st.tone === 'filling' ? '#8A5A00' : 'var(--muted)', fontWeight: st.tone === 'open' ? 400 : 700 }}>{st.text}</div>
                       </div>
                     </div>
                     <Bar value={c.fillPct} color={STREAM[c.stream].color} />
                     {c.locked && (
                       <div className="notice">
-                        <Icon name="lock" size={16} color="#B4430D" stroke={2.2} style={{ flexShrink: 0, marginTop: 1 }} />
+                        <Icon name="lock" size={16} color="#E5481F" stroke={2.2} style={{ flexShrink: 0, marginTop: 1 }} />
                         <span>{c.lockReason === 'manual' ? 'Closed by the BioLoop team for maintenance.' : 'Lid locked to stop overflow. It opens again once the collector empties it.'}</span>
                       </div>
                     )}
@@ -196,6 +200,7 @@ export function StationDetail() {
               })}
             </section>
 
+            <div className="col">
             <section aria-label="Collection" className="card stack">
               <div className="row between">
                 <h2>Pickup</h2>
@@ -231,7 +236,8 @@ export function StationDetail() {
                 <button type="button" className="btn ghost block" onClick={() => setDrop(true)}><Icon name="plus" size={17} />Log a drop</button>
               </>
             )}
-            <button type="button" className="btn dashed block" onClick={() => setReport(true)}><Icon name="flag" size={17} color="#B4430D" />Report a problem with this bin</button>
+            <button type="button" className="btn dashed block" onClick={() => setReport(true)}><Icon name="flag" size={17} color="#E5481F" />Report a problem with this bin</button>
+            </div>
           </>
         )}
       </main>
@@ -354,14 +360,14 @@ export function FindBin() {
       <BackHeader title="Find a bin" subtitle="Stations with room right now" to="/" />
       <main className="page" style={{ gap: 12 }}>
         <label className="search">
-          <Icon name="search" size={18} color="#52635A" />
+          <Icon name="search" size={18} color="#4D6356" />
           <span className="sr-only">Search stations</span>
           <input type="search" placeholder="Search code, place or area" value={q} onChange={(e) => setQ(e.target.value)} />
         </label>
         <button type="button" className="btn ghost block" onClick={locate}><Icon name="nav" size={17} />{here ? 'Sorted by distance' : 'Use my location'}</button>
         {locErr && <p className="xs muted">{locErr}</p>}
         <ErrorBox error={error} onRetry={reload} />
-        {!data ? <Spinner /> : !list.length ? <Empty icon="search" title="No stations found">Try a different name or area.</Empty> : list.map((s) => (
+        {!data ? <Spinner /> : !list.length ? <Empty icon="search" title="No stations found">Try a different name or area.</Empty> : <div className="list-grid">{list.map((s) => (
           <Link key={s.id} to={`/stations/${s.id}`} className="card tight stack" style={{ textDecoration: 'none', color: 'inherit', gap: 10 }}>
             <div className="row">
               <div className="grow">
@@ -381,7 +387,7 @@ export function FindBin() {
               ))}
             </div>
           </Link>
-        ))}
+        ))}</div>}
       </main>
     </>
   );
@@ -400,19 +406,19 @@ export function SortGuide() {
       <BackHeader title="Sort guide" subtitle="What goes where" to="/" />
       <main className="page" style={{ gap: 12 }}>
         <div className="notice info"><Icon name="info" size={16} style={{ flexShrink: 0, marginTop: 1 }} /><span>Clean, sorted recyclables go straight to local recyclers. One dirty item can spoil a whole batch.</span></div>
-        {GUIDE.map((g) => (
+        <div className="list-grid">{GUIDE.map((g) => (
           <section key={g.stream} className="card stack">
             <div className="row"><StreamSwatch stream={g.stream} /><h2 style={{ fontSize: 17 }}>{STREAM[g.stream].long}</h2></div>
             <div className="stack-sm">
-              {g.yes.map((t) => <div key={t} className="row small"><Icon name="check" size={16} color="#1F6B45" stroke={2.4} />{t}</div>)}
+              {g.yes.map((t) => <div key={t} className="row small"><Icon name="check" size={16} color="#147A4B" stroke={2.4} />{t}</div>)}
             </div>
             <div className="divider" />
             <div className="stack-sm">
               <span className="eyebrow">Keep out</span>
-              {g.no.map((t) => <div key={t} className="row small muted"><Icon name="x" size={16} color="#B4430D" stroke={2.4} />{t}</div>)}
+              {g.no.map((t) => <div key={t} className="row small muted"><Icon name="x" size={16} color="#E5481F" stroke={2.4} />{t}</div>)}
             </div>
           </section>
-        ))}
+        ))}</div>
         <p className="xs muted center">Batteries, phones and medical waste need special drop points. Ask your local waste office.</p>
       </main>
     </>
@@ -428,14 +434,15 @@ export function Rewards() {
   return (
     <>
       <BackHeader title="Rewards" subtitle="Loop points for sorting right" to="/" />
-      <main className="page" style={{ gap: 12 }}>
-        <ErrorBox error={error} onRetry={reload} />
-        <section className="hero" style={{ background: '#7A5B00' }}>
-          <span className="eyebrow">Your Loop points</span>
+      <main className="page cols" style={{ gap: 12 }}>
+        <div className="span-all"><ErrorBox error={error} onRetry={reload} /></div>
+        <div className="col">
+        <section className="hero" style={{ background: '#FF8CC6', color: '#13261B' }}>
+          <span className="bold">Your Loop points</span>
           <div className="num" style={{ fontSize: 44 }}>{points.toLocaleString()}</div>
           <div className="stack-sm">
-            <div className="bar" style={{ background: 'rgba(255,255,255,0.18)' }}><div style={{ width: `${progress}%`, background: '#F8EFC9' }} /></div>
-            <span className="small" style={{ color: 'rgba(255,255,255,0.85)' }}>{next - points} more to your next reward at {next.toLocaleString()}</span>
+            <div className="bar"><div style={{ width: `${progress}%`, background: '#FFC21A' }} /></div>
+            <span className="small bold">{next - points} more to your next reward at {next.toLocaleString()}</span>
           </div>
         </section>
         <section className="card stack-sm">
@@ -445,11 +452,12 @@ export function Rewards() {
           ))}
           <p className="xs muted" style={{ marginTop: 4 }}>Up to 4 drops a day. Rewards like airtime are paid out by the BioLoop team when you reach each milestone.</p>
         </section>
+        </div>
         <section className="card tight stack" style={{ gap: 10 }}>
           <h2>History</h2>
           {!data ? <Spinner /> : !data.activity.length ? <p className="small muted">No points yet. Log your first drop from your bin page.</p> : data.activity.map((a) => (
             <div className="act" key={a.id}>
-              <i style={{ background: STREAM[a.stream]?.color || '#2E8B57' }} />
+              <i style={{ background: STREAM[a.stream]?.color || '#1F9D5A' }} />
               <div className="grow">
                 <div style={{ fontSize: 14, fontWeight: 600 }}>{a.reason === 'drop' ? `${STREAM[a.stream]?.label || 'Waste'} drop` : a.reason}</div>
                 <div className="xs muted">{whenLabel(a.at)}{a.stationCode ? ` · ${a.stationCode}` : ''}</div>

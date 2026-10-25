@@ -56,7 +56,8 @@ export function CollectorRoute() {
         <span className={`pill ${enRoute ? 'ok' : 'grey'}`}>{enRoute ? 'On route' : 'Ready'}</span>
         <AlertsButton unread={unread} />
       </header>
-      <main className="page" style={{ gap: 12 }}>
+      <main className="page cols" style={{ gap: 12 }}>
+        <div className="col">
         {!user.orgId && <div className="notice">Your account is not linked to a collection company yet. Ask your BioLoop admin to add you.</div>}
         <ErrorBox error={pickups.error} onRetry={reload} />
 
@@ -64,11 +65,18 @@ export function CollectorRoute() {
           <RouteSketch stops={stops} />
           <div className="route-stats">
             <div><div className="num">{summary.data?.open ?? '–'}</div><div className="lbl">Stops</div></div>
-            <div><div className="num" style={{ color: '#F6B57B' }}>{summary.data?.locked ?? '–'}</div><div className="lbl">Locked bins</div></div>
+            <div><div className="num" style={{ color: '#FFB38F' }}>{summary.data?.locked ?? '–'}</div><div className="lbl">Locked bins</div></div>
             <div><div className="num">{summary.data?.doneToday ?? '–'}</div><div className="lbl">Done today</div></div>
           </div>
         </section>
+        {assigned > 0 && (
+          <button type="button" className="btn big block pink" onClick={startRoute} disabled={busy}>
+            <Icon name="nav" size={20} stroke={2.2} />Start route ({assigned})
+          </button>
+        )}
+        </div>
 
+        <div className="col">
         <div className="row between" style={{ marginTop: 2 }}>
           <h2 className="section-title">Next stops</h2>
           <span className="small muted">Sorted by urgency</span>
@@ -105,12 +113,7 @@ export function CollectorRoute() {
             </button>
           );
         })}
-
-        {assigned > 0 && (
-          <button type="button" className="btn big block" onClick={startRoute} disabled={busy}>
-            <Icon name="nav" size={20} stroke={2.2} />Start route ({assigned})
-          </button>
-        )}
+        </div>
       </main>
       <StopSheet stop={stop} station={stop && byId[stop.stationId]} onClose={() => setStop(null)} onChanged={() => { reload(); }} />
     </>
@@ -126,11 +129,11 @@ function RouteSketch({ stops }) {
     <div className="route-map">
       <svg width="100%" height="150" viewBox="0 0 350 150" preserveAspectRatio="none" aria-hidden="true">
         <path d="M0 40 H350 M0 100 H350 M70 0 V150 M180 0 V150 M280 0 V150" stroke="rgba(255,255,255,0.07)" strokeWidth="10" />
-        {d && <path d={d} fill="none" stroke="#8FD3A8" strokeWidth="4" strokeLinecap="round" strokeDasharray="1 9" />}
+        {d && <path d={d} fill="none" stroke="#7CE3A3" strokeWidth="4" strokeLinecap="round" strokeDasharray="1 9" />}
         <circle cx="40" cy="120" r="9" fill="#FFFFFF" />
-        <circle cx="40" cy="120" r="4" fill="#0B3A52" />
+        <circle cx="40" cy="120" r="4" fill="#13265E" />
         {coords.map(([x, y], i) => (
-          <circle key={i} cx={x} cy={y} r={pts[i].items.some((p) => p.locked) ? 8 : 7} fill={pts[i].items.some((p) => p.locked) ? '#F6A55E' : '#8FD3A8'} />
+          <circle key={i} cx={x} cy={y} r={pts[i].items.some((p) => p.locked) ? 8 : 7} fill={pts[i].items.some((p) => p.locked) ? '#FF9A6B' : '#7CE3A3'} />
         ))}
       </svg>
     </div>
@@ -236,7 +239,8 @@ export function CollectorMap() {
         <h1 className="page-title md">Your stations</h1>
         <AlertsButton unread={unread} />
       </header>
-      <main className="page" style={{ gap: 12 }}>
+      <main className="page cols" style={{ gap: 12 }}>
+        <div className="col">
         <section className="map-card">
           <MapLegend />
           <StationMap points={points} height={280} highlight={sel} onSelect={(p) => setSel(p.id)} />
@@ -249,6 +253,8 @@ export function CollectorMap() {
             ))}
           </div>
         )}
+        </div>
+        <div className="col">
         {!stations.data ? <Spinner /> : !list.length ? <Empty icon="map" title="No stations yet">Stations assigned to your company will appear here.</Empty> : list.map((s) => (
           <button key={s.id} type="button" className="card tight row" style={{ textAlign: 'left', cursor: 'pointer' }} onClick={() => setSel(s.id)}>
             <div className="grow">
@@ -258,6 +264,7 @@ export function CollectorMap() {
             <span className={`pill ${s.anyLocked ? 'locked' : s.maxFill >= 75 ? 'near' : 'ok'}`}>{s.anyLocked ? 'Locked' : `${s.maxFill}%`}</span>
           </button>
         ))}
+        </div>
       </main>
     </>
   );

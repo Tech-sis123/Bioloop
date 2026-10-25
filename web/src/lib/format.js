@@ -2,9 +2,9 @@ const TZ = 'Africa/Lagos';
 
 export const STREAMS = ['general', 'recyclable', 'organic'];
 export const STREAM = {
-  general: { label: 'General', long: 'General waste', hint: 'Nylon, food wrappers, mixed', color: '#D9A520', hero: '#E9B949', soft: '#F8EFC9' },
-  recyclable: { label: 'Recyclables', long: 'Recyclables', hint: 'PET bottles, cans, paper', color: '#255F9A', hero: '#5E9FDB', soft: '#DCE8F5' },
-  organic: { label: 'Organic', long: 'Organic', hint: 'Food scraps, peels, leaves', color: '#2E8B57', hero: '#6CC08B', soft: '#DDEEE2' },
+  general: { label: 'General', long: 'General waste', hint: 'Nylon, food wrappers, mixed', color: '#F0B000', hero: '#FFC21A', soft: '#FFF0B8' },
+  recyclable: { label: 'Recyclables', long: 'Recyclables', hint: 'PET bottles, cans, paper', color: '#2F5BFF', hero: '#7B96FF', soft: '#E0E7FF' },
+  organic: { label: 'Organic', long: 'Organic', hint: 'Food scraps, peels, leaves', color: '#1F9D5A', hero: '#5CD68C', soft: '#D4F2DD' },
 };
 
 export function timeOf(d) {

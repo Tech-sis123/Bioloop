@@ -8,23 +8,23 @@ import Icon from '../ui/Icon.jsx';
 import { BackHeader, Empty, ErrorBox, Field, Spinner, useForm, useToast } from '../ui/kit.jsx';
 
 const KIND_STYLE = {
-  locked: { icon: 'lock', bg: '#FCE7D6', color: '#B4430D', warn: true },
-  manual_lock: { icon: 'lock', bg: '#FCE7D6', color: '#B4430D' },
-  near_full: { icon: 'bin', bg: '#F8E3B0', color: '#6B4700' },
-  offline: { icon: 'wifiOff', bg: '#FCE7D6', color: '#B4430D', warn: true },
-  station_online: { icon: 'wifi', bg: '#DDEEE2', color: '#1F6B45' },
-  battery_low: { icon: 'sun', bg: '#F8EFC9', color: '#7A5B00', warn: true },
-  device_event: { icon: 'info', bg: '#FCE7D6', color: '#B4430D', warn: true },
-  problem_report: { icon: 'flag', bg: '#FCE7D6', color: '#B4430D' },
-  pickup_assigned: { icon: 'truck', bg: '#DDEEE2', color: '#1F6B45' },
-  pickup_unassigned: { icon: 'truck', bg: '#FCE7D6', color: '#B4430D', warn: true },
-  en_route: { icon: 'truck', bg: '#DDEEE2', color: '#1F6B45' },
-  pickup_completed: { icon: 'check', bg: '#DDEEE2', color: '#1F6B45' },
-  emptied: { icon: 'unlock', bg: '#DDEEE2', color: '#1F6B45' },
-  unlocked: { icon: 'unlock', bg: '#DDEEE2', color: '#1F6B45' },
-  points: { icon: 'medal', bg: '#F8EFC9', color: '#7A5B00' },
-  batch_reserved: { icon: 'box', bg: '#DCE8F5', color: '#255F9A' },
-  report_resolved: { icon: 'check', bg: '#DDEEE2', color: '#1F6B45' },
+  locked: { icon: 'lock', bg: '#FFE3D8', color: '#E5481F', warn: true },
+  manual_lock: { icon: 'lock', bg: '#FFE3D8', color: '#E5481F' },
+  near_full: { icon: 'bin', bg: '#FFE89A', color: '#6B4500' },
+  offline: { icon: 'wifiOff', bg: '#FFE3D8', color: '#E5481F', warn: true },
+  station_online: { icon: 'wifi', bg: '#D4F2DD', color: '#147A4B' },
+  battery_low: { icon: 'sun', bg: '#FFF0B8', color: '#7A5300', warn: true },
+  device_event: { icon: 'info', bg: '#FFE3D8', color: '#E5481F', warn: true },
+  problem_report: { icon: 'flag', bg: '#FFE3D8', color: '#E5481F' },
+  pickup_assigned: { icon: 'truck', bg: '#D4F2DD', color: '#147A4B' },
+  pickup_unassigned: { icon: 'truck', bg: '#FFE3D8', color: '#E5481F', warn: true },
+  en_route: { icon: 'truck', bg: '#D4F2DD', color: '#147A4B' },
+  pickup_completed: { icon: 'check', bg: '#D4F2DD', color: '#147A4B' },
+  emptied: { icon: 'unlock', bg: '#D4F2DD', color: '#147A4B' },
+  unlocked: { icon: 'unlock', bg: '#D4F2DD', color: '#147A4B' },
+  points: { icon: 'medal', bg: '#FFF0B8', color: '#7A5300' },
+  batch_reserved: { icon: 'box', bg: '#E0E7FF', color: '#2F5BFF' },
+  report_resolved: { icon: 'check', bg: '#D4F2DD', color: '#147A4B' },
 };
 
 const FILTERS = [['all', 'All'], ['bin', 'Bins'], ['pickup', 'Pickups'], ['reward', 'Rewards']];
@@ -72,7 +72,7 @@ export function AlertsList({ embedded = false }) {
         <div key={label} className="stack" style={{ gap: 10 }}>
           <h2 className="eyebrow" style={{ marginTop: 4 }}>{label}</h2>
           {list.map((n) => {
-            const k = KIND_STYLE[n.kind] || { icon: 'bell', bg: '#EEF1EA', color: '#52635A' };
+            const k = KIND_STYLE[n.kind] || { icon: 'bell', bg: '#E6EFE6', color: '#4D6356' };
             return (
               <button type="button" key={n.id} className={`alert-item ${!n.read && k.warn ? 'unread-warn' : ''}`} onClick={() => open(n)}>
                 <span className="alert-ico" style={{ background: k.bg }}><Icon name={k.icon} size={19} color={k.color} stroke={2.2} /></span>
@@ -99,7 +99,7 @@ export function AlertsPage() {
         <h1 className="page-title">Alerts</h1>
         <button type="button" className="link-btn" onClick={async () => { await post('/notifications/read-all'); setKey((k) => k + 1); }}>Mark all read</button>
       </header>
-      <main className="page" style={{ paddingTop: 4 }}>
+      <main className="page narrow" style={{ paddingTop: 4 }}>
         <AlertsList key={key} />
       </main>
     </>
@@ -143,7 +143,7 @@ export function ProfilePage() {
   return (
     <>
       <BackHeader title="Profile" to="/" />
-      <main className="page" style={{ gap: 14 }}>
+      <main className="page narrow" style={{ gap: 14 }}>
         <section className="card row">
           <span className="avatar">{initials(user.fullName)}</span>
           <div className="grow">
@@ -155,7 +155,7 @@ export function ProfilePage() {
         {user.orgName && <div className="notice info"><Icon name="users" size={16} style={{ flexShrink: 0, marginTop: 1 }} /><span>You are part of <strong>{user.orgName}</strong>.</span></div>}
         {user.role === 'resident' && (
           <section className="card row">
-            <Icon name="bin" color="#1F6B45" />
+            <Icon name="bin" color="#147A4B" />
             <div className="grow">
               <div className="bold small">My bin</div>
               <div className="small muted">{home.data?.station ? `${home.data.station.code} · ${home.data.station.name}` : 'Not chosen yet'}</div>

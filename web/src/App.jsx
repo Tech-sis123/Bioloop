@@ -1,6 +1,9 @@
-import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
+import { Navigate, NavLink, Outlet, Route, Routes } from 'react-router-dom';
 import { useAuth } from './lib/auth.jsx';
 import { BottomNav, Spinner, useUnread } from './ui/kit.jsx';
+import Icon, { LogoMark } from './ui/Icon.jsx';
+import Landing from './pages/Landing.jsx';
+import { initials } from './lib/format.js';
 import { ForgotPassword, Login, Register, ResetPassword } from './pages/auth.jsx';
 import { FindBin, ResidentHome, Rewards, SortGuide, StationDetail } from './pages/resident.jsx';
 import { AlertsPage, ProfilePage } from './pages/shared.jsx';
@@ -38,10 +41,33 @@ function MobileShell() {
       { to: '/profile', icon: 'user', label: 'Profile' },
     ],
   };
+  const items = navs[user.role] || navs.resident;
+  const ROLE = { resident: 'Resident', collector: 'Collector', recycler: 'Recycler' };
   return (
     <div className="app">
-      <Outlet />
-      <BottomNav items={navs[user.role] || navs.resident} blue={user.role === 'recycler'} />
+      <aside className="side-nav" aria-label="Sidebar">
+        <NavLink to="/" className="logo"><LogoMark size={32} /><span>BioLoop</span></NavLink>
+        <nav aria-label="Main">
+          {items.map((it) => (
+            <NavLink key={it.to} to={it.to} end={it.end} className={({ isActive }) => (isActive ? 'active' : '')}>
+              <Icon name={it.icon} size={20} />{it.label}
+              {it.count > 0 && <span className="count">{it.count > 9 ? '9+' : it.count}</span>}
+            </NavLink>
+          ))}
+        </nav>
+        {user.role === 'resident' && <div className="promo">Sort right, earn Loop points. Recyclables give the most.</div>}
+        <NavLink to="/profile" className="me" style={{ textDecoration: 'none', color: 'inherit' }}>
+          <span className="avatar">{initials(user.fullName)}</span>
+          <span className="grow" style={{ minWidth: 0 }}>
+            <span className="bold small truncate" style={{ display: 'block' }}>{user.fullName}</span>
+            <span className="xs muted">{user.orgName || ROLE[user.role]}</span>
+          </span>
+        </NavLink>
+      </aside>
+      <div className="main">
+        <Outlet />
+      </div>
+      <BottomNav items={items} blue={user.role === 'recycler'} />
     </div>
   );
 }
@@ -49,7 +75,7 @@ function MobileShell() {
 function RequireAuth({ children }) {
   const { user, ready } = useAuth();
   if (!ready) return <Spinner />;
-  if (!user) return <Navigate to="/login" replace />;
+  if (!user) return <Navigate to="/welcome" replace />;
   return children;
 }
 
@@ -90,6 +116,7 @@ function DashAlerts() {
 export default function App() {
   return (
     <Routes>
+      <Route path="/welcome" element={<PublicOnly><Landing /></PublicOnly>} />
       <Route path="/login" element={<PublicOnly><Login /></PublicOnly>} />
       <Route path="/register" element={<PublicOnly><Register /></PublicOnly>} />
       <Route path="/forgot-password" element={<PublicOnly><ForgotPassword /></PublicOnly>} />
