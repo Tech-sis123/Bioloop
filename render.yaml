@@ -1,0 +1,47 @@
+# Render Blueprint: creates the BioLoop API and its Postgres database.
+# In Render: New > Blueprint > pick this repo. Fill in the values marked sync: false.
+services:
+  - type: web
+    name: bioloop-api
+    runtime: node
+    rootDir: api
+    plan: free            # use "starter" for real users so it never sleeps
+    region: frankfurt     # closest Render region to Lagos
+    buildCommand: npm ci --omit=dev
+    startCommand: npm start
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: "22"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: bioloop-db
+          property: connectionString
+      - key: DATABASE_SSL
+        value: "false"     # Render internal network. Set "true" if you use an external DB like Neon.
+      - key: JWT_SECRET
+        generateValue: true
+      - key: TRUST_PROXY
+        value: "2"         # browser > Vercel > Render > app
+      - key: CORS_ORIGINS
+        sync: false        # e.g. https://bioloop.vercel.app
+      - key: APP_URL
+        sync: false        # e.g. https://bioloop.vercel.app (used in password links)
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false        # remove after first successful deploy
+      - key: SEED_DEMO
+        value: "false"
+      - key: RESEND_API_KEY
+        sync: false        # optional, for password reset emails
+
+databases:
+  - name: bioloop-db
+    plan: free             # free Render Postgres expires; use a paid plan for real users
+    region: frankfurt
+    databaseName: bioloop
+    user: bioloop
