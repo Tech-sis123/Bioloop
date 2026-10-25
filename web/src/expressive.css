@@ -305,3 +305,12 @@ body { font-size: 15.5px; }
 @media (min-width: 1024px) {
   .topbar:has(> .logo) { justify-content: flex-end; }
 }
+
+/* Privacy page */
+.privacy { max-width: 760px; padding-top: 30px; padding-bottom: 40px; }
+.privacy h1 { font-family: var(--display); font-weight: 800; font-size: clamp(38px, 5vw, 56px); letter-spacing: -0.045em; line-height: 1; margin-bottom: 8px; }
+.privacy h2 { font-family: var(--display); font-weight: 800; font-size: 24px; letter-spacing: -0.03em; margin: 34px 0 10px; }
+.privacy p, .privacy li { font-size: 16px; line-height: 1.6; color: #2F4637; margin: 8px 0; }
+.privacy ul { padding-left: 20px; margin: 0; }
+.privacy strong { color: var(--ink); }
+.credits a { color: var(--ink); font-weight: 700; }

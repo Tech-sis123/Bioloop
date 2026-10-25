@@ -3,6 +3,7 @@ import { useAuth } from './lib/auth.jsx';
 import { BottomNav, Spinner, useUnread } from './ui/kit.jsx';
 import Icon, { LogoMark } from './ui/Icon.jsx';
 import Landing from './pages/Landing.jsx';
+import Privacy from './pages/Privacy.jsx';
 import { initials } from './lib/format.js';
 import { ForgotPassword, Login, Register, ResetPassword } from './pages/auth.jsx';
 import { FindBin, ResidentHome, Rewards, SortGuide, StationDetail } from './pages/resident.jsx';
@@ -116,6 +117,7 @@ function DashAlerts() {
 export default function App() {
   return (
     <Routes>
+      <Route path="/privacy" element={<Privacy />} />
       <Route path="/welcome" element={<PublicOnly><Landing /></PublicOnly>} />
       <Route path="/login" element={<PublicOnly><Login /></PublicOnly>} />
       <Route path="/register" element={<PublicOnly><Register /></PublicOnly>} />

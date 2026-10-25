@@ -186,8 +186,7 @@ export default function Landing() {
           <span>Questions or partnerships: <a href="mailto:bioloopteam@gmail.com">bioloopteam@gmail.com</a></span>
         </div>
         <p className="credits">
-          Photos from Unsplash by Ahmed Nasiru, Segun Osunyomi, Ben Iwara, Muhammad-Taha Ibrahim, Leiada Krözjhen, Nareeta Martin and Julian Gojani.
-          Jaja Complex photo and bin render by Team BioLoop.
+          <Link to="/privacy">Privacy policy</Link> <span aria-hidden="true">|</span> © {new Date().getFullYear()} BioLoop. All rights reserved.
         </p>
       </footer>
     </div>
