@@ -36,7 +36,7 @@ render.yaml Render blueprint (API + database)
 
 - Passwords hashed with bcrypt (cost 12), strength rules, common-password block
 - 15 minute access tokens kept in memory only; refresh token in an httpOnly, Secure, SameSite cookie, rotated on every use with reuse detection (a stolen, replayed token kills the whole session)
-- CSRF protection on cookie endpoints, strict CORS allowlist, Helmet security headers, CSP on the web app
+- CSRF protection on cookie endpoints, CORS open to any origin but credentials only for named origins, Helmet security headers, CSP on the web app
 - Account lockout after 5 failed logins (15 min), rate limits on login, API and per device
 - Same error and timing for unknown email vs wrong password (no account discovery)
 - Public sign-up can only create residents; roles are assigned by staff; agency staff cannot create admins
@@ -57,7 +57,8 @@ You need a GitHub repo with this code, a Render account and a Vercel account.
 1. Render dashboard > **New > Blueprint** > pick this repo. It reads `render.yaml` and creates `bioloop-api` and `bioloop-db`.
 2. Fill in the prompted values:
    - `ADMIN_EMAIL`, `ADMIN_PASSWORD`: your first admin login (password: 8+ characters with a letter and a number)
-   - `CORS_ORIGINS` and `APP_URL`: your Vercel URL, e.g. `https://bioloop.vercel.app` (you can set these after step 2 and redeploy)
+   - `CORS_ORIGINS` is preset to `*` (any site can call the API). With the Vercel proxy this is all you need. If you ever call the API directly from the browser, add your Vercel URL too: `*,https://bioloop.vercel.app`
+   - `APP_URL`: your Vercel URL, e.g. `https://bioloop.vercel.app` (used in password links; you can set it after step 2 and redeploy)
    - `RESEND_API_KEY`: optional, for password reset emails
 3. Deploy. Check `https://<your-api>.onrender.com/health` returns `{"ok":true,"db":"up"}`.
 4. Note the exact API URL Render gives you. If it is not `https://bioloop-api.onrender.com`, update it in `web/vercel.json` (the `/api/:path*` rewrite).
@@ -70,7 +71,7 @@ You need a GitHub repo with this code, a Render account and a Vercel account.
 1. Vercel > **Add New > Project** > import the repo.
 2. Set **Root Directory** to `web`. Framework is detected as Vite.
 3. Environment variable: `VITE_DEVICE_API_URL` = your Render API URL (shown next to new device keys).
-4. Deploy. Put the Vercel URL into Render's `CORS_ORIGINS` and `APP_URL` if you have not yet.
+4. Deploy. Put the Vercel URL into Render's `APP_URL` if you have not yet.
 
 ### 3. First run
 

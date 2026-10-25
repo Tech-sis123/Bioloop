@@ -39,20 +39,26 @@ export function createApp() {
 
   app.use(helmet({
     contentSecurityPolicy: { directives: { defaultSrc: ["'none'"], frameAncestors: ["'none'"] } },
-    crossOriginResourcePolicy: { policy: 'same-site' },
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
   }));
 
-  app.use(cors({
-    origin(origin, cb) {
-      // Devices and server-to-server calls have no Origin header
-      if (!origin) return cb(null, true);
-      if (config.corsOrigins.includes(origin.replace(/\/$/, ''))) return cb(null, true);
-      return cb(null, false);
-    },
-    credentials: true,
+  // CORS_ORIGINS="*" lets any website call the API. Cookies/credentials are
+  // still only allowed for origins listed by name, so a random site can never
+  // ride on a signed-in user's session.
+  const allowAll = config.corsOrigins.includes('*');
+  const named = config.corsOrigins.filter((o) => o !== '*');
+  const corsBase = {
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'X-Device-Key', 'X-Request-Id'],
     methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
     maxAge: 600,
+  };
+  app.use(cors((req, cb) => {
+    const origin = (req.get('origin') || '').replace(/\/$/, '');
+    // Devices and server-to-server calls have no Origin header
+    if (!origin) return cb(null, { ...corsBase, origin: false });
+    if (named.includes(origin)) return cb(null, { ...corsBase, origin: true, credentials: true });
+    if (allowAll) return cb(null, { ...corsBase, origin: true, credentials: false });
+    return cb(null, { ...corsBase, origin: false });
   }));
 
   app.use(compression());

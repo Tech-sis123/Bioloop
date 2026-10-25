@@ -27,7 +27,7 @@ services:
       - key: TRUST_PROXY
         value: "2"         # browser > Vercel > Render > app
       - key: CORS_ORIGINS
-        sync: false        # e.g. https://bioloop.vercel.app
+        value: "*"         # any site may call the API; add your Vercel URL (comma separated) to allow cookies from it
       - key: APP_URL
         sync: false        # e.g. https://bioloop.vercel.app (used in password links)
       - key: ADMIN_EMAIL
