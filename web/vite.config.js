@@ -8,5 +8,5 @@ export default defineConfig({
     // In development, /api calls go to the local API (same as the Vercel rewrite in production)
     proxy: { '/api': { target: process.env.API_PROXY || 'http://localhost:4000', changeOrigin: true } },
   },
-  build: { sourcemap: false, target: 'es2019' },
+  build: { sourcemap: false, target: 'es2019', chunkSizeWarningLimit: 800 },
 });

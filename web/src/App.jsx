@@ -1,9 +1,11 @@
+import { Suspense, lazy } from 'react';
 import { Navigate, NavLink, Outlet, Route, Routes } from 'react-router-dom';
 import { useAuth } from './lib/auth.jsx';
 import { BottomNav, Spinner, useUnread } from './ui/kit.jsx';
 import Icon, { LogoMark } from './ui/Icon.jsx';
-import Landing from './pages/Landing.jsx';
-import Privacy from './pages/Privacy.jsx';
+// Marketing pages load separately so the app itself stays light (3D lives here)
+const Landing = lazy(() => import('./pages/Landing.jsx'));
+const Privacy = lazy(() => import('./pages/Privacy.jsx'));
 import { initials } from './lib/format.js';
 import { ForgotPassword, Login, Register, ResetPassword } from './pages/auth.jsx';
 import { FindBin, ResidentHome, Rewards, SortGuide, StationDetail } from './pages/resident.jsx';
@@ -117,8 +119,8 @@ function DashAlerts() {
 export default function App() {
   return (
     <Routes>
-      <Route path="/privacy" element={<Privacy />} />
-      <Route path="/welcome" element={<PublicOnly><Landing /></PublicOnly>} />
+      <Route path="/privacy" element={<Suspense fallback={<Spinner />}><Privacy /></Suspense>} />
+      <Route path="/welcome" element={<PublicOnly><Suspense fallback={<div style={{ minHeight: '100vh', background: '#0A2A1C' }} />}><Landing /></Suspense></PublicOnly>} />
       <Route path="/login" element={<PublicOnly><Login /></PublicOnly>} />
       <Route path="/register" element={<PublicOnly><Register /></PublicOnly>} />
       <Route path="/forgot-password" element={<PublicOnly><ForgotPassword /></PublicOnly>} />

@@ -1,15 +1,16 @@
 import { Link } from 'react-router-dom';
 import { LogoMark } from '../ui/Icon.jsx';
 import Icon from '../ui/Icon.jsx';
+import '../landing.css';
 
 // Plain-language privacy policy. Reflects what the app actually stores.
 // Have it reviewed before a large public launch.
 export default function Privacy() {
   return (
     <div className="land">
-      <header className="land-nav">
+      <header className="land-nav solid">
         <Link to="/welcome" className="logo" aria-label="BioLoop home">
-          <LogoMark size={32} a="#147A4B" b="#2F5BFF" />
+          <LogoMark size={32} a="#7CE3A3" b="#A9BBFF" />
           <span>BioLoop</span>
         </Link>
         <Link to="/welcome" className="auth-back"><Icon name="back" size={18} />Back</Link>
